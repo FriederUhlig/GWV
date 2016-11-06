@@ -22,13 +22,13 @@ class Labyrinth:
         """Read the textfile containing ASCII-characters and return as a String without linebreaks"""
 
         environments = ['blatt3_environment.txt', 'blatt3_environment_b.txt']
-        choice = int(raw_input('Please choose the environment to use:\n'
+        choice = raw_input('Please choose the environment to use:\n'
                            '0: blatt3_environment.txt\n'
-                           '1: blatt3_environment_b.txt\n'))
-        while not choice in [0, 1]:
-            choice = input('To choose the environment, please put in the corresponding number:\n')
+                           '1: blatt3_environment_b.txt\n')
+        while choice not in ['0', '1']:
+            choice = raw_input('To choose the environment, please put in the corresponding number:\n')
 
-        labyrinth = open(environments[choice], 'r')
+        labyrinth = open(environments[int(choice)], 'r')
         ascii = labyrinth.readlines()
 
         for i, n in enumerate(ascii):
