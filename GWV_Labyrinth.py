@@ -15,6 +15,7 @@ class Labyrinth:
 
         self.representation = self.create_representation()
         self.connect_nodes(self.representation)
+        self.print_search_state()
 
     def read_file(self):
         """Read the textfile containing ASCII-characters and return as a String without linebreaks"""
@@ -40,7 +41,7 @@ class Labyrinth:
         for rownumber, row in enumerate(self.input_matrix):
             for colnumber, val in enumerate(row):
                 if val != 'x':
-                    node_matrix[rownumber][colnumber] = Node()
+                    node_matrix[rownumber][colnumber] = Node(val)
                 else:
                     node_matrix[rownumber][colnumber] = 'x'
 
@@ -61,17 +62,25 @@ class Labyrinth:
 
     def print_search_state(self):
         """Put out a human-readable representation of a search state"""
+
         ascii_rep = ''
-        pass
+        for row in self.representation:
+            for col in row:
+                ascii_rep += col.__str__()  # DarfErDas?
+            ascii_rep += '\n'
+        print(ascii_rep)
 
 
 class Node:
     """
     Nodes that can be connected to form a graph.
     """
-    def __init__(self, is_goal=False):
-        self.goal = is_goal
+    def __init__(self, type_of_node):
+        self.typeOfNode = type_of_node
         self.neighbors = []
+
+    def __str__(self):
+        return self.typeOfNode
 
     def find_neighbors(self, matrix, position):
         """
