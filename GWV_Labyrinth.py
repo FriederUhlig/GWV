@@ -6,7 +6,8 @@ class Labyrinth:
     Reads an ASCII-art representation of a search problem, converts it into a graph upon which
     to execute search algorithms.
     """
-    #TODO too much functionality in one class. Separate Reading, Constructing, printing,...
+
+    # TODO too much functionality in one class. Separate Reading, Constructing, printing,...
 
     def __init__(self):
         textlines = self.read_file()
@@ -20,7 +21,14 @@ class Labyrinth:
     def read_file(self):
         """Read the textfile containing ASCII-characters and return as a String without linebreaks"""
 
-        labyrinth = open('blatt3_environment.txt', 'r')
+        environments = ['blatt3_environment.txt', 'blatt3_environment_b.txt']
+        choice = raw_input('Please choose the environment to use:\n'
+                           '0: blatt3_environment.txt\n'
+                           '1: blatt3_environment_b.txt\n')
+        while not choice in [1, 2]:
+            choice = input('To choose the environment, please put in the corresponding number:\n')
+
+        labyrinth = open(environments[choice], 'r')
         ascii = labyrinth.readlines()
 
         for i, n in enumerate(ascii):
@@ -75,6 +83,7 @@ class Node:
     """
     Nodes that can be connected to form a graph.
     """
+
     def __init__(self, type_of_node):
         self.typeOfNode = type_of_node
         self.neighbors = []
