@@ -14,7 +14,7 @@ class Labyrinth:
         self.input_matrix = [[char for char in row] for row in textlines]
 
         self.representation = self.create_representation()
-        # TODO fix it: self.connect_nodes(self.representation)
+        self.connect_nodes(self.representation)
 
     def read_file(self):
         """Read the textfile containing ASCII-characters and return as a String without linebreaks"""
@@ -40,7 +40,6 @@ class Labyrinth:
         for rownumber, row in enumerate(self.input_matrix):
             for colnumber, val in enumerate(row):
                 if val != 'x':
-                    print('as')
                     node_matrix[rownumber][colnumber] = Node()
                 else:
                     node_matrix[rownumber][colnumber] = 'x'
@@ -56,7 +55,7 @@ class Labyrinth:
         for rownumber, row in enumerate(self.input_matrix):
             for colnumber, val in enumerate(row):
                 if self.input_matrix[rownumber][colnumber] != 'x':
-                    matrix[rownumber][colnumber].find_neighbors()
+                    matrix[rownumber][colnumber].find_neighbors(matrix, (colnumber, rownumber))
                 else:
                     matrix[rownumber][colnumber] = 'x'
 
