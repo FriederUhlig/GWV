@@ -16,16 +16,16 @@ class Labyrinth:
 
         self.representation = self.create_representation()
         self.connect_nodes(self.representation)
-        self.print_search_state()
+        #self.print_search_state()
 
     def read_file(self):
         """Read the textfile containing ASCII-characters and return as a String without linebreaks"""
 
         environments = ['blatt3_environment.txt', 'blatt3_environment_b.txt']
-        choice = raw_input('Please choose the environment to use:\n'
+        choice = int(raw_input('Please choose the environment to use:\n'
                            '0: blatt3_environment.txt\n'
-                           '1: blatt3_environment_b.txt\n')
-        while not choice in [1, 2]:
+                           '1: blatt3_environment_b.txt\n'))
+        while not choice in [0, 1]:
             choice = input('To choose the environment, please put in the corresponding number:\n')
 
         labyrinth = open(environments[choice], 'r')
@@ -78,6 +78,12 @@ class Labyrinth:
             ascii_rep += '\n'
         print(ascii_rep)
 
+    def get_start(self):
+        for row in self.representation:
+            for node in row:
+                if node != 'x' and node.is_start():
+                    return node
+
 
 class Node:
     """
@@ -122,8 +128,10 @@ class Node:
         Is this node a goal?
         :return: True, if this node is a goal
         """
-        return self.goal
+        return self.typeOfNode == 'g'
 
+    def is_start(self):
+        return self.typeOfNode == 's'
 
 if __name__ == '__main__':
     maze = Labyrinth()
